@@ -1,30 +1,25 @@
-# obj-m is a list of what kernel modules to build.  The .o and other
-# objects will be automatically built from the corresponding .c file -
-# no need to list the source files explicitly.
+MODULE_NAME = uio_ivshmem
 
-obj-m := uio_ivshmem.o 
+obj-m += $(MODULE_NAME).o
 
-# KDIR is the location of the kernel source.  The current standard is
-# to link to the associated source tree from the directory containing
-# the compiled modules.
-KDIR  := /lib/modules/$(shell uname -r)/build
+KDIR ?= /lib/modules/$(shell uname -r)
 
-# PWD is the current working directory and the location of our module
-# source files.
-PWD   := $(shell pwd)
+all:
+	make -C $(KDIR)/build M=$(shell pwd) modules
 
-# default is the default make target.  The rule here says to run make
-# with a working directory of the directory containing the kernel
-# source and compile only the modules in the PWD (local) directory.
-default:
-	$(MAKE) -C $(KDIR) M=$(PWD) modules
+install: all
+	dkms install "$(shell pwd)" --force
+	cp *.rules /etc/udev/rules.d/
+uninstall: *.rules
+	dkms remove $(MODULE_NAME)/$(shell cat dkms.conf | grep PACKAGE_VERSION | sed 's/^[^\.]\+\=//' | sed -e 's/["]//g') --all
+	rm -f $(shell printf "/etc/udev/rules.d/%s " $^)
 
-install:
-	cp uio_ivshmem.ko /lib/modules/$(shell uname -r)/kernel/drivers/uio/
-	depmod
-uninstall:
-	rm -f /lib/modules/$(shell uname -r)/kernel/drivers/char/uio_ivshmem.ko
-	depmod
+load: all
+	modprobe uio
+	insmod $(MODULE_NAME).ko
+unload:
+	rmmod $(MODULE_NAME)
+	modprobe -r uio
 
 clean:
 	rm -f *.ko *.o *.mod* *.symvers *.order .*.cmd

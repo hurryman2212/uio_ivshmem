@@ -9,6 +9,7 @@
  * Licensed under GPL version 2 only.
  */
 
+#include <linux/module.h>
 #include <linux/pci.h>
 #include <linux/uio_driver.h>
 #include <linux/version.h>

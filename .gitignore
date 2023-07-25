@@ -5,3 +5,7 @@
 
 !*.c
 *.mod.c
+
+!dkms.conf
+
+!*.rules
