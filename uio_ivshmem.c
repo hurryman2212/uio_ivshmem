@@ -9,12 +9,13 @@
  * Licensed under GPL version 2 only.
  */
 
-#include <linux/cdev.h>
-#include <linux/device.h>
-#include <linux/io.h>
-#include <linux/module.h>
 #include <linux/pci.h>
 #include <linux/uio_driver.h>
+#include <linux/version.h>
+
+#if LINUX_VERSION_CODE > KERNEL_VERSION(6, 4, 0)
+#define class_create(owner, name) class_create(name)
+#endif
 
 #define IntrStatus 0x04
 #define IntrMask 0x00
