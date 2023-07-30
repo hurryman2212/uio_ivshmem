@@ -1,6 +1,10 @@
 *
 !.gitignore
 
+!.vscode
+!.vscode/*.json
+!.vscode/update.py
+
 !Makefile
 
 !*.c

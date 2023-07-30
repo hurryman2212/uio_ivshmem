@@ -1,0 +1,45 @@
+{
+  "env": {
+    "uname": "6.4.6-1-liquorix-amd64",
+    "gcc-dumpversion": "12"
+  },
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/local/include",
+        "/usr/local/include/**",
+        "/usr/include",
+        "/usr/include/**",
+        "/usr/include/asm-generic",
+        "/usr/include/asm-generic/**",
+        "/usr/src/linux-headers-${env:uname}/include",
+        "/usr/src/linux-headers-${env:uname}/include/**",
+        "/usr/src/linux-headers-${env:uname}/include/asm",
+        "/usr/src/linux-headers-${env:uname}/include/asm/**",
+        "/usr/src/linux-headers-${env:uname}/include/asm-generic",
+        "/usr/src/linux-headers-${env:uname}/include/asm-generic/**",
+        "/usr/src/linux-headers-${env:uname}/include/linux",
+        "/usr/src/linux-headers-${env:uname}/include/linux/**",
+        "/usr/src/linux-headers-${env:uname}/arch/x86/include",
+        "/usr/src/linux-headers-${env:uname}/arch/x86/include/**",
+        "/usr/src/linux-headers-${env:uname}/arch/x86/include/asm",
+        "/usr/src/linux-headers-${env:uname}/arch/x86/include/asm/**",
+        "/usr/lib/gcc/x86_64-linux-gnu/${env:gcc-dumpversion}/include",
+        "/usr/lib/gcc/x86_64-linux-gnu/${env:gcc-dumpversion}/include/**"
+      ],
+      "defines": [
+        "__KERNEL__",
+        "CONFIG_PAGE_OFFSETUL",
+        "KBUILD_MODNAME=\"\"",
+        "KBUILD_MODFILE=\"\""
+      ],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++11",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ],
+  "version": 4
+}
